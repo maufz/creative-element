@@ -1,7 +1,3 @@
-import { JSDOM } from "jsdom";
-
-const { document } = new JSDOM().window;
-
 type Stringable = string | number | boolean;
 
 type ElementAttributes = Record<string, Stringable>;
@@ -18,7 +14,8 @@ const isEmptyObject = (obj: object): boolean => {
   return Object.keys(obj).length === 0;
 };
 
-export const element = <Tag extends keyof HTMLElementTagNameMap>(tag: Tag, { attributes, data, className }: Args, ...content: (string | HTMLElement | DocumentFragment)[]): HTMLElementTagNameMap[Tag] => {
+export const element = <Tag extends keyof HTMLElementTagNameMap>(tag: Tag, args: Args = {}, ...content: (string | HTMLElement | DocumentFragment)[]): HTMLElementTagNameMap[Tag] => {
+  const { attributes, data, className } = args;
   const el = document.createElement(String(tag)) as HTMLElementTagNameMap[Tag];
   if (content) {
     content.forEach((element) => {
