@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "A lightweight library to easily create HTML elements",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "scripts": {
     "test": "vitest",
-    "compile": "tsc --declaration",
-    "watch": "tsc --declaration --watch",
+    "compile": "tsup src/index.ts",
+    "watch": "tsup src/index.ts --format cjs,esm --watch --minify",
     "prepublishOnly": "npm run compile"
   },
   "keywords": [],
@@ -15,7 +16,7 @@
   "devDependencies": {
     "@types/jsdom": "^21.1.7",
     "jsdom": "^24.1.1",
-    "typescript": "^5.5.4",
+    "tsup": "^8.2.3",
     "vitest": "^2.0.4"
   }
 }
