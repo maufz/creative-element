@@ -4,13 +4,14 @@ import { JSDOM } from "jsdom";
 
 global.document = new JSDOM().window.document;
 
-test('Create a paragraph element with the text "Hello World!"', () => {
-  const paragraph = element("p", {}, "Hello world!");
-
-  expect(paragraph.innerHTML).toBe("Hello world!");
-});
 
 describe('element function', () => {
+  test('Create a paragraph element with the text "Hello World!"', () => {
+    const paragraph = element("p", {}, "Hello world!");
+  
+    expect(paragraph.innerHTML).toBe("Hello world!");
+  });
+
   test("Create a div element and set a class and an ID", () => {
     const div = element("div", {
       class: "testClass",
@@ -47,5 +48,3 @@ describe('styled function', () => {
     expect(div.style.color).toBe("orange");
   });
 })
-
-
