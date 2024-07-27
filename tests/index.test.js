@@ -1,4 +1,4 @@
-import { element, style } from "../dist";
+import { element, styled } from "../dist";
 import { test, expect, describe } from "vitest";
 import { JSDOM } from "jsdom";
 
@@ -40,9 +40,9 @@ describe('element function', () => {
   })
 })
 
-describe('style function', () => {
+describe('styled function', () => {
   test("Style a div with an orange color", () => {
-    const div = style(element("div"), { color: "orange" });
+    const div = styled(element("div"), { color: "orange" });
   
     expect(div.style.color).toBe("orange");
   });

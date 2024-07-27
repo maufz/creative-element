@@ -1,13 +1,16 @@
 {
-  "name": "lmnt",
+  "name": "creative-element",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A lightweight library to easily create HTML elements",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "compile": "tsc --declaration",
+    "watch": "tsc --declaration --watch",
+    "prepublishOnly": "npm run compile"
   },
   "keywords": [],
-  "author": "",
+  "author": "Mauro Fernández (https://maurofernandez.dev)",
   "license": "ISC",
   "devDependencies": {
     "@types/jsdom": "^21.1.7",

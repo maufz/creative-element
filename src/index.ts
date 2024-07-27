@@ -42,7 +42,7 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(
   return el;
 };
 
-export const style = <ElType extends HTMLElement>(
+export const styled = <ElType extends HTMLElement>(
   element: ElType,
   styles: Partial<
     Record<keyof CSSStyleDeclaration | `--${string}`, Stringable>
