@@ -4,7 +4,6 @@ import { JSDOM } from "jsdom";
 
 global.document = new JSDOM().window.document;
 
-
 describe('element function', () => {
   test('Create a paragraph element with the text "Hello World!"', () => {
     const paragraph = element("p", {}, "Hello world!");
@@ -39,12 +38,4 @@ describe('element function', () => {
     
     expect(dataKey).toBe('test');
   })
-})
-
-describe('styled function', () => {
-  test("Style a div with an orange color", () => {
-    const div = styled(element("div"), { color: "orange" });
-  
-    expect(div.style.color).toBe("orange");
-  });
 })

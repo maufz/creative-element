@@ -1,12 +1,12 @@
 type Stringable = string | number;
 
-const isEmptyObject = (obj: object): boolean => {
-  return Object.keys(obj).length === 0;
-};
-
 interface AttributeObject {
   [key: string]: Stringable | AttributeObject;
 }
+
+const isEmptyObject = (obj: object): boolean => {
+  return Object.keys(obj).length === 0;
+};
 
 export const element = <Tag extends keyof HTMLElementTagNameMap>(
   tag: Tag,
@@ -40,24 +40,6 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(
     Object.entries(attributes).forEach(([key, value]) => handleAttribute(key, value));
   }
   return el;
-};
-
-export const styled = <ElType extends HTMLElement>(
-  element: ElType,
-  styles: Partial<
-    Record<keyof CSSStyleDeclaration | `--${string}`, Stringable>
-  >
-): ElType => {
-  for (const style in styles) {
-    if (!(style in element.style) && !style.startsWith("--")) continue;
-    if (styles[style as keyof typeof styles]) {
-      element.style.setProperty(
-        style,
-        String(styles[style as keyof typeof styles])
-      );
-    }
-  }
-  return element;
 };
 
 export default element;
