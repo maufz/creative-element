@@ -1,22 +1,32 @@
-type Stringable = string | number | boolean;
-
-type ElementAttributes = Record<string, Stringable>;
-
-type Args = {
-  content?: string | HTMLElement;
-  attributes?: ElementAttributes;
-  data?: ElementAttributes;
-  className?: string;
-  id?: string;
-};
+type Stringable = string | number;
 
 const isEmptyObject = (obj: object): boolean => {
   return Object.keys(obj).length === 0;
 };
 
-export const element = <Tag extends keyof HTMLElementTagNameMap>(tag: Tag, args: Args = {}, ...content: (string | HTMLElement | DocumentFragment)[]): HTMLElementTagNameMap[Tag] => {
-  const { attributes, data, className } = args;
+interface AttributeObject {
+  [key: string]: Stringable | AttributeObject;
+}
+
+export const element = <Tag extends keyof HTMLElementTagNameMap>(
+  tag: Tag,
+  attributes: AttributeObject,
+  ...content: (string | HTMLElement | DocumentFragment)[]
+): HTMLElementTagNameMap[Tag] => {
+  
   const el = document.createElement(String(tag)) as HTMLElementTagNameMap[Tag];
+
+  const handleAttribute = (key: string, value: Stringable | AttributeObject) => {
+    if (typeof value === "string" || typeof value === "number") {
+      el.setAttribute(key, String(value));
+    }
+    if (typeof value === "object") {
+      for (const attributeObject in value) {
+        handleAttribute(`${key}-${attributeObject}`, value[attributeObject]);
+      }
+    }
+  };
+
   if (content) {
     content.forEach((element) => {
       if (typeof element === "string") {
@@ -24,38 +34,30 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(tag: Tag, args:
       } else if (typeof element === "object") {
         el.appendChild(element);
       }
-    })
+    });
   }
-  const mergedAttributes: Args['attributes'] = {...attributes};
-  if (className) {
-    if (attributes && attributes.class) {
-      mergedAttributes.class = String(attributes.class) + ' ' + className;
-      console.log('here');
-    } else {
-      mergedAttributes.class = className;
-    }
-  }
-  if (data) {
-    Object.entries(data).forEach(([key, value]) =>
-      el.setAttribute(`data-${key}`, String(value))
-    );
-  }
-  if (!isEmptyObject(mergedAttributes)) {
-    Object.entries(mergedAttributes).forEach(([key, value]) =>
-      el.setAttribute(key, String(value))
-    );
+  if (typeof attributes === 'object' && !isEmptyObject(attributes)) {
+    Object.entries(attributes).forEach(([key, value]) => handleAttribute(key, value));
   }
   return el;
 };
 
-export const style = <ElType extends HTMLElement>(element: ElType, styles: Partial<Record<keyof (CSSStyleDeclaration) | `--${string}`, string | number>>): ElType => {
+export const style = <ElType extends HTMLElement>(
+  element: ElType,
+  styles: Partial<
+    Record<keyof CSSStyleDeclaration | `--${string}`, Stringable>
+  >
+): ElType => {
   for (const style in styles) {
-    if (!(style in element.style) && !style.startsWith('--')) continue;
+    if (!(style in element.style) && !style.startsWith("--")) continue;
     if (styles[style as keyof typeof styles]) {
-      element.style.setProperty(style, String(styles[style as keyof typeof styles]));
+      element.style.setProperty(
+        style,
+        String(styles[style as keyof typeof styles])
+      );
     }
   }
   return element;
-}
+};
 
 export default element;
