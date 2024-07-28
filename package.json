@@ -4,6 +4,7 @@
   "description": "A lightweight library to easily create HTML elements",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
+  "repository": "https://github.com/maufz/creative-element",
   "scripts": {
     "test": "vitest",
     "compile": "tsup src/index.ts",
