@@ -60,12 +60,12 @@ Object of attributes, can take an string or number as a value.
 Can also take an object as a value, this will concatenate the keys of the object with hyphens.
 
 ```js
+// Creates a data-target="#dropdown" attribute
 element("button", {
   data: {
     target: "#dropdown",
   },
 });
-// Creates a data-target="#dropdown" attribute
 ```
 
 ### ...content `(string | HTMLElement)`

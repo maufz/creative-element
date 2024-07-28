@@ -8,14 +8,20 @@ const isEmptyObject = (obj: object): boolean => {
   return Object.keys(obj).length === 0;
 };
 
+const validateAttributes = (attributes?: AttributeObject) => {
+  return typeof attributes === 'object' && !Array.isArray(attributes) &&  !isEmptyObject(attributes);
+}
+
 export const element = <Tag extends keyof HTMLElementTagNameMap>(
   tag: Tag,
-  attributes: AttributeObject,
+  attributes?: AttributeObject,
   ...content: (string | HTMLElement | DocumentFragment)[]
 ): HTMLElementTagNameMap[Tag] => {
   
+  // Creates the element
   const el = document.createElement(String(tag)) as HTMLElementTagNameMap[Tag];
-
+  
+  // Recursive function that sets the attributes
   const handleAttribute = (key: string, value: Stringable | AttributeObject) => {
     if (typeof value === "string" || typeof value === "number") {
       el.setAttribute(key, String(value));
@@ -27,6 +33,13 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(
     }
   };
 
+  if (attributes && validateAttributes(attributes)) {
+    for (const attributeKey in attributes) {
+      handleAttribute(attributeKey, attributes[attributeKey]);
+    }
+  }
+
+  // Insert the inner text or append a nested element
   if (content) {
     content.forEach((element) => {
       if (typeof element === "string") {
@@ -36,9 +49,7 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(
       }
     });
   }
-  if (typeof attributes === 'object' && !isEmptyObject(attributes)) {
-    Object.entries(attributes).forEach(([key, value]) => handleAttribute(key, value));
-  }
+
   return el;
 };
 

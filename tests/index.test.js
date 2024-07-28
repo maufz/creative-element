@@ -38,4 +38,8 @@ describe('element function', () => {
     
     expect(dataKey).toBe('test');
   })
+
+  test('Create a empty paragraph element', () => {
+    const paragraph = element('p');
+  })
 })
