@@ -1,6 +1,6 @@
 # creative-element
 
-A lightweight library to easily create HTML elements
+A lightweight utility which simplifies the creation of HTML elements
 
 ## Install
 
@@ -16,7 +16,7 @@ import element from "creative-element";
 import { element } from "creative-element";
 
 // element()
-element(
+const anchor = element(
   "a",
   {
     href: "https://github.com/maufz/",
@@ -25,8 +25,11 @@ element(
   "Inner text"
 );
 
+// append into an existing element
+document.body.appendChild(anchor);
+
 // nested elements
-element(
+const section = element(
   "section",
   {
     id: "hero-section",
@@ -36,11 +39,12 @@ element(
 );
 
 // nested attribute objects
-element("button", {
+const button = element("button", {
   data: {
     target: "#dropdown",
   },
 });
+
 ```
 
 ## Function reference
