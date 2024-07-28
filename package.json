@@ -7,7 +7,7 @@
   "repository": "https://github.com/maufz/creative-element",
   "scripts": {
     "test": "vitest",
-    "compile": "tsup src/index.ts",
+    "build": "tsup src/index.ts",
     "watch": "tsup src/index.ts --watch"
   },
   "exports": {
