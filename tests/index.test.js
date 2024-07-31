@@ -1,8 +1,12 @@
-import { element, styled } from "../dist";
+import { element } from "../dist";
 import { test, expect, describe } from "vitest";
 import { JSDOM } from "jsdom";
 
-global.document = new JSDOM().window.document;
+const dom = new JSDOM()
+
+global.document = dom.window.document;
+global.HTMLElement = dom.window.HTMLElement;
+global.DocumentFragment = dom.window.DocumentFragment;
 
 describe('element function', () => {
   test('Create a paragraph element with the text "Hello World!"', () => {
