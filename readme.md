@@ -44,7 +44,6 @@ const button = element("button", {
     target: "#dropdown",
   },
 });
-
 ```
 
 ## Function reference
@@ -72,7 +71,7 @@ element("button", {
 });
 ```
 
-### ...content `(string | HTMLElement)`
+#### ...content `(string | HTMLElement)`
 
 Inner content of the created element.
 
