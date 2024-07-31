@@ -4,18 +4,6 @@ interface AttributeObject {
   [key: string]: Stringable | AttributeObject;
 }
 
-const isEmptyObject = (obj: object): boolean => {
-  return Object.entries(obj).length === 0;
-};
-
-const validateAttributes = (attributes?: AttributeObject) => {
-  return (
-    typeof attributes === "object" &&
-    !Array.isArray(attributes) &&
-    !isEmptyObject(attributes)
-  );
-};
-
 export const element = <Tag extends keyof HTMLElementTagNameMap>(
   tag: Tag,
   attributes?: AttributeObject,
@@ -38,7 +26,7 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(
     }
   };
 
-  if (attributes && validateAttributes(attributes)) {
+  if (typeof attributes === 'object' && !Array.isArray(attributes)) {
     for (const attributeKey in attributes) {
       handleAttribute(attributeKey, attributes[attributeKey]);
     }
@@ -48,8 +36,7 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(
   const contentFragment = document.createDocumentFragment();
   content.forEach((element) => {
     if (typeof element === "string") {
-      const textNode = document.createTextNode(element);
-      contentFragment.appendChild(textNode);
+      contentFragment.appendChild(document.createTextNode(element));
     } else if (
       element instanceof HTMLElement ||
       element instanceof DocumentFragment
