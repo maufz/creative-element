@@ -5,28 +5,33 @@ interface AttributeObject {
 }
 
 const isEmptyObject = (obj: object): boolean => {
-  return Object.keys(obj).length === 0;
+  return Object.entries(obj).length === 0;
 };
 
 const validateAttributes = (attributes?: AttributeObject) => {
-  return typeof attributes === 'object' && !Array.isArray(attributes) &&  !isEmptyObject(attributes);
-}
+  return (
+    typeof attributes === "object" &&
+    !Array.isArray(attributes) &&
+    !isEmptyObject(attributes)
+  );
+};
 
 export const element = <Tag extends keyof HTMLElementTagNameMap>(
   tag: Tag,
   attributes?: AttributeObject,
   ...content: (string | HTMLElement | DocumentFragment)[]
 ): HTMLElementTagNameMap[Tag] => {
-  
   // Creates the element
   const el = document.createElement(String(tag)) as HTMLElementTagNameMap[Tag];
-  
+
   // Recursive function that sets the attributes
-  const handleAttribute = (key: string, value: Stringable | AttributeObject) => {
+  const handleAttribute = (
+    key: string,
+    value: Stringable | AttributeObject
+  ) => {
     if (typeof value === "string" || typeof value === "number") {
       el.setAttribute(key, String(value));
-    }
-    if (typeof value === "object") {
+    } else if (typeof value === "object") {
       for (const attributeObject in value) {
         handleAttribute(`${key}-${attributeObject}`, value[attributeObject]);
       }
@@ -39,16 +44,20 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(
     }
   }
 
-  // Insert the inner text or append a nested element
-  if (content) {
-    content.forEach((element) => {
-      if (typeof element === "string") {
-        el.innerHTML += element;
-      } else if (typeof element === "object") {
-        el.appendChild(element);
-      }
-    });
-  }
+  // Insert a text node or append an element or fragment
+  const contentFragment = document.createDocumentFragment();
+  content.forEach((element) => {
+    if (typeof element === "string") {
+      const textNode = document.createTextNode(element);
+      contentFragment.appendChild(textNode);
+    } else if (
+      element instanceof HTMLElement ||
+      element instanceof DocumentFragment
+    ) {
+      contentFragment.appendChild(element);
+    }
+  });
+  el.appendChild(contentFragment);
 
   return el;
 };

@@ -1,8 +1,12 @@
-import { element, styled } from "../dist";
+import { element } from "../dist";
 import { test, expect, describe } from "vitest";
 import { JSDOM } from "jsdom";
 
-global.document = new JSDOM().window.document;
+const dom = new JSDOM()
+
+global.document = dom.window.document;
+global.HTMLElement = dom.window.HTMLElement;
+global.DocumentFragment = dom.window.DocumentFragment;
 
 describe('element function', () => {
   test('Create a paragraph element with the text "Hello World!"', () => {
@@ -23,7 +27,7 @@ describe('element function', () => {
   test('Create a section and add a h1 element with the text "Hello world!"', () => {
     const section = element("section", {}, element("h1", {}, "Hello world!"));
     const h1 = section.querySelector("h1");
-    
+    console.log(section.outerHTML);
     expect(section.children.length).toBe(1);
     expect(h1.innerHTML).toBe("Hello world!");
   });
