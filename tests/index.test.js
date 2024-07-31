@@ -27,7 +27,7 @@ describe('element function', () => {
   test('Create a section and add a h1 element with the text "Hello world!"', () => {
     const section = element("section", {}, element("h1", {}, "Hello world!"));
     const h1 = section.querySelector("h1");
-    console.log(section.outerHTML);
+    
     expect(section.children.length).toBe(1);
     expect(h1.innerHTML).toBe("Hello world!");
   });
