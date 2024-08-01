@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.1 - 2024-08-01
+
+### Changes
+
+- Minor change in element function
+
 ## v1.2.0 - 2024-07-31
 
 ### Changes
