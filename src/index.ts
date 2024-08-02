@@ -1,21 +1,23 @@
 import type { ElementAttributesMap } from "./types";
 
-// Recursive function that sets the attributes
-const handleAttribute = <ElType extends HTMLElement, Tag extends keyof HTMLElementTagNameMap>(
+const handleAttribute = <ElType extends HTMLElementTagNameMap[Tag], Tag extends keyof HTMLElementTagNameMap>(
   el: ElType,
   key: string,
   value: ElementAttributesMap[Tag]
 ) => {
-  if (typeof value === "string" || typeof value === "number") {
+  if ((key === "className" || key === 'id') && typeof value === "string") {
+    el[key] = value;
+  }
+  else if (typeof value === "string" || typeof value === "number") {
     el.setAttribute(key, String(value));
   }
-  else if (typeof value === "object" && ['data', 'aria'].includes(key)) {
+  else if (typeof value === 'boolean' && key in el) {
+    el[key as keyof ElType] = value;
+  }
+  else if (typeof value === "object" && (key === "data" || key === "aria")) {
     for (const attributeObject in value) {
       el.setAttribute(`${key}-${attributeObject}`, String(value[attributeObject]));
     }
-  }
-  else if (typeof value === 'boolean' && key in el) {
-    (el as any)[key] = value;
   }
 };
 
@@ -30,10 +32,6 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(
   // Handle element attributes
   if (typeof attributes === "object" && !Array.isArray(attributes)) {
     for (const attributeKey in attributes) {
-      if (attributeKey === "className") {
-        el.className = attributes[attributeKey];
-        continue;
-      }
       handleAttribute<HTMLElementTagNameMap[Tag], Tag>(el, attributeKey, attributes[attributeKey]);
     }
   }
