@@ -1,27 +1,27 @@
-type Stringable = string | number;
-
-interface AttributeObject {
-  [key: string]: Stringable | AttributeObject;
-}
+import type { ElementAttributesMap } from "./types";
 
 // Recursive function that sets the attributes
-const handleAttribute = <ElType extends HTMLElement>(
+const handleAttribute = <ElType extends HTMLElement, Tag extends keyof HTMLElementTagNameMap>(
   el: ElType,
   key: string,
-  value: Stringable | AttributeObject
+  value: ElementAttributesMap[Tag]
 ) => {
   if (typeof value === "string" || typeof value === "number") {
     el.setAttribute(key, String(value));
-  } else if (typeof value === "object") {
+  }
+  else if (typeof value === "object" && ['data', 'aria'].includes(key)) {
     for (const attributeObject in value) {
-      handleAttribute(el, `${key}-${attributeObject}`, value[attributeObject]);
+      el.setAttribute(`${key}-${attributeObject}`, String(value[attributeObject]));
     }
+  }
+  else if (typeof value === 'boolean' && key in el) {
+    (el as any)[key] = value;
   }
 };
 
 export const element = <Tag extends keyof HTMLElementTagNameMap>(
   tag: Tag,
-  attributes?: AttributeObject,
+  attributes?: ElementAttributesMap[Tag],
   ...content: (string | HTMLElement | DocumentFragment)[]
 ): HTMLElementTagNameMap[Tag] => {
   // Create the element
@@ -30,7 +30,11 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(
   // Handle element attributes
   if (typeof attributes === "object" && !Array.isArray(attributes)) {
     for (const attributeKey in attributes) {
-      handleAttribute<HTMLElementTagNameMap[Tag]>(el, attributeKey, attributes[attributeKey]);
+      if (attributeKey === "className") {
+        el.className = attributes[attributeKey];
+        continue;
+      }
+      handleAttribute<HTMLElementTagNameMap[Tag], Tag>(el, attributeKey, attributes[attributeKey]);
     }
   }
 
