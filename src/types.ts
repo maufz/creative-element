@@ -57,7 +57,6 @@ interface AudioAttributes extends GlobalAttributes {
   crossorigin?: string;
   loop?: boolean;
   muted?: boolean;
-  playsinline?: boolean;
   preload?: 'none' | 'metadata' | 'auto';
   src?: string;
 }
@@ -134,6 +133,49 @@ interface InputAttributes extends GlobalAttributes {
   width?: number;
 }
 
+interface SelectAttributes extends GlobalAttributes {
+  autofocus?: boolean;
+  disabled?: boolean;
+  form?: string;
+  multiple?: boolean;
+  name?: string;
+  required?: boolean;
+  size?: number;
+}
+
+interface TextareaAttributes extends GlobalAttributes {
+  autocapitalize?: boolean;
+  autocomplete?: 'on' | 'off';
+  autofocus?: boolean;
+  cols?: number;
+  dirname?: 'ltr' | 'rtl';
+  disabled?: boolean;
+  form?: string;
+  maxlength?: number;
+  minlength?: number;
+  name?: string;
+  placeholder?: string;
+  readonly?: boolean;
+  required?: boolean;
+  rows?: number;
+  wrap?: 'hard' | 'soft';
+}
+
+interface FormAttributes extends GlobalAttributes {
+  acceptcharset?: string;
+  action?: string;
+  autocomplete?: 'on' | 'off';
+  enctype?: 'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain';
+  method?: 'post' | 'get' | 'dialog';
+  name?: string;
+  novalidate?: boolean;
+  target?: '_self' | '_blank' | '_parent' | '_top' | '_unfencedTop';
+}
+
+interface LabelAttributes extends GlobalAttributes {
+  for?: string;
+}
+
 export type ElementAttributesMap = {
   [key in keyof HTMLElementTagNameMap]: GlobalAttributes;
 } & {
@@ -144,4 +186,8 @@ export type ElementAttributesMap = {
   canvas: CanvasAttributes;
   img: ImgAttributes;
   input: InputAttributes;
+  select: SelectAttributes;
+  textarea: TextareaAttributes;
+  form: FormAttributes;
+  label: LabelAttributes;
 };

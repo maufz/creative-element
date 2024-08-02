@@ -29,7 +29,7 @@ describe('element function', () => {
     const h1 = section.querySelector("h1");
     
     expect(section.children.length).toBe(1);
-    expect(h1.innerHTML).toBe("Hello world!");
+    expect(h1?.innerHTML).toBe("Hello world!");
   });
   
   test('Set a "data-key" attribute of "test" using nested objects', () => {

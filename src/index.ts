@@ -5,19 +5,19 @@ const handleAttribute = <ElType extends HTMLElementTagNameMap[Tag], Tag extends 
   key: string,
   value: ElementAttributesMap[Tag]
 ) => {
-  if ((key === "className" || key === 'id') && typeof value === "string") {
-    el[key] = value;
-  }
-  else if (typeof value === "string" || typeof value === "number") {
-    el.setAttribute(key, String(value));
-  }
-  else if (typeof value === 'boolean' && key in el) {
+  if ((typeof value === 'boolean' || typeof value === 'string' || typeof value === 'number') && key in el) {
     el[key as keyof ElType] = value;
   }
   else if (typeof value === "object" && (key === "data" || key === "aria")) {
     for (const attributeObject in value) {
       el.setAttribute(`${key}-${attributeObject}`, String(value[attributeObject]));
     }
+  }
+  else if (typeof value === "string" || typeof value === "number") {
+    el.setAttribute(key, String(value));
+  }
+  else {
+    console.warn('Invalid attribute value for key: "' + key + '"');
   }
 };
 
