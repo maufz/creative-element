@@ -17,7 +17,7 @@ describe('element function', () => {
 
   test("Create a div element and set a class and an ID", () => {
     const div = element("div", {
-      class: "testClass",
+      className: "testClass",
       id: "testID"
     });
     expect(div.classList.contains("testClass")).toBeTruthy();
