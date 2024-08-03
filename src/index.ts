@@ -16,9 +16,6 @@ const handleAttribute = <ElType extends HTMLElementTagNameMap[Tag], Tag extends 
   else if (typeof value === "string" || typeof value === "number") {
     el.setAttribute(key, String(value));
   }
-  else {
-    console.warn('Invalid attribute value for key: "' + key + '"');
-  }
 };
 
 export const element = <Tag extends keyof HTMLElementTagNameMap>(
