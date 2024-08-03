@@ -1,28 +1,28 @@
 import { GlobalAttributes } from './global';
 
-export interface ButtonAttributes extends GlobalAttributes {
+interface CommonFormFieldAttributes {
   autofocus?: boolean;
   disabled?: boolean;
   form?: string;
+  name?: string;
+  required?: boolean;
+  value?: string;
+}
+
+export interface ButtonAttributes extends GlobalAttributes, CommonFormFieldAttributes {
   formaction?: string;
   formenctype?: string;
   formmethod?: string;
   formnovalidate?: boolean;
   formtarget?: string;
-  name?: string;
   type?: 'button' | 'reset' | 'submit';
-  value?: string;
 }
 
-export interface InputAttributes extends GlobalAttributes {
+export interface InputAttributes extends GlobalAttributes, CommonFormFieldAttributes {
   accept?: string;
   alt?: string;
-  autocomplete?: string;
-  autofocus?: boolean;
   checked?: boolean;
   dirname?: string;
-  disabled?: boolean;
-  form?: string;
   formaction?: string;
   formenctype?: string;
   formmethod?: string;
@@ -35,26 +35,18 @@ export interface InputAttributes extends GlobalAttributes {
   min?: number;
   minlength?: number;
   multiple?: boolean;
-  name?: string;
   pattern?: string;
   placeholder?: string;
   readonly?: boolean;
-  required?: boolean;
   size?: number;
   src?: string;
   step?: number;
   type?: string;
-  value?: string;
   width?: number;
 }
 
-export interface SelectAttributes extends GlobalAttributes {
-  autofocus?: boolean;
-  disabled?: boolean;
-  form?: string;
+export interface SelectAttributes extends GlobalAttributes, CommonFormFieldAttributes {
   multiple?: boolean;
-  name?: string;
-  required?: boolean;
   size?: number;
 }
 
@@ -70,20 +62,15 @@ export interface OptGroupAttributes extends GlobalAttributes {
   label?: string;
 }
 
-export interface TextareaAttributes extends GlobalAttributes {
+export interface TextareaAttributes extends GlobalAttributes, CommonFormFieldAttributes {
   autocapitalize?: boolean;
   autocomplete?: 'on' | 'off';
-  autofocus?: boolean;
   cols?: number;
   dirname?: 'ltr' | 'rtl';
-  disabled?: boolean;
-  form?: string;
   maxlength?: number;
   minlength?: number;
-  name?: string;
   placeholder?: string;
   readonly?: boolean;
-  required?: boolean;
   rows?: number;
   wrap?: 'hard' | 'soft';
 }
@@ -101,4 +88,10 @@ export interface FormAttributes extends GlobalAttributes {
 
 export interface LabelAttributes extends GlobalAttributes {
   for?: string;
+}
+
+export interface FieldsetAttributes extends GlobalAttributes {
+  disabled?: boolean;
+  form?: string;
+  name?: string;
 }
