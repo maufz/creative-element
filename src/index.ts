@@ -1,27 +1,29 @@
-type Stringable = string | number;
+import type { ElementAttributesMap } from "./types";
 
-interface AttributeObject {
-  [key: string]: Stringable | AttributeObject;
-}
-
-// Recursive function that sets the attributes
-const handleAttribute = <ElType extends HTMLElement>(
+const handleAttribute = <ElType extends HTMLElementTagNameMap[Tag], Tag extends keyof HTMLElementTagNameMap>(
   el: ElType,
   key: string,
-  value: Stringable | AttributeObject
+  value: ElementAttributesMap[Tag]
 ) => {
-  if (typeof value === "string" || typeof value === "number") {
-    el.setAttribute(key, String(value));
-  } else if (typeof value === "object") {
+  if ((typeof value === 'boolean' || typeof value === 'string' || typeof value === 'number') && key in el) {
+    el[key as keyof ElType] = value;
+  }
+  else if (typeof value === "object" && (key === "data" || key === "aria")) {
     for (const attributeObject in value) {
-      handleAttribute(el, `${key}-${attributeObject}`, value[attributeObject]);
+      el.setAttribute(`${key}-${attributeObject}`, String(value[attributeObject]));
     }
+  }
+  else if (typeof value === "string" || typeof value === "number") {
+    el.setAttribute(key, String(value));
+  }
+  else {
+    console.warn('Invalid attribute value for key: "' + key + '"');
   }
 };
 
 export const element = <Tag extends keyof HTMLElementTagNameMap>(
   tag: Tag,
-  attributes?: AttributeObject,
+  attributes?: ElementAttributesMap[Tag],
   ...content: (string | HTMLElement | DocumentFragment)[]
 ): HTMLElementTagNameMap[Tag] => {
   // Create the element
@@ -30,7 +32,7 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(
   // Handle element attributes
   if (typeof attributes === "object" && !Array.isArray(attributes)) {
     for (const attributeKey in attributes) {
-      handleAttribute<HTMLElementTagNameMap[Tag]>(el, attributeKey, attributes[attributeKey]);
+      handleAttribute<HTMLElementTagNameMap[Tag], Tag>(el, attributeKey, attributes[attributeKey]);
     }
   }
 
