@@ -21,6 +21,7 @@ const anchor = element(
   {
     href: "https://github.com/maufz/",
     target: "_blank",
+    className: "cta",
   },
   "Inner text"
 );
@@ -38,7 +39,7 @@ const section = element(
   element("p", {}, "A lightweight library to easily create HTML elements")
 );
 
-// nested attribute objects
+// data attribute
 const button = element("button", {
   data: {
     target: "#dropdown",
@@ -60,7 +61,7 @@ HTML tag name for the element (e.g. a, div, section)
 
 Object of attributes, can take an string or number as a value.
 
-Can also take an object as a value, this will concatenate the keys of the object with hyphens.
+`data-*` and `aria-*` can be set using an object.
 
 ```js
 // Creates a data-target="#dropdown" attribute

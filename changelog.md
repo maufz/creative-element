@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.3.0 - 2024-08-03
+
+### Changes
+
+- Added possible attributes types for a better developer experience
+- Enabled boolean attributes to be set
+- Class attribute should be set with the property `className` now, though using `class` is still supported
+
 ## v1.2.1 - 2024-08-01
 
 ### Changes
@@ -22,4 +30,3 @@ v1.2.0       | 56.685  | 17641.049614111675  | ±0.43%   | 22675   |
 ### Other
 
 - Readme minor change
-
