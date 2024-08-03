@@ -3,7 +3,6 @@ export interface GlobalAttributes {
   anchor?: string;
   autocapitalize?: boolean;
   autofocus?: boolean;
-  class?: string;
   className?: string;
   contenteditable?: boolean;
   dir?: 'ltr' | 'rtl' | 'auto';

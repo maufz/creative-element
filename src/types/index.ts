@@ -20,47 +20,14 @@ import {
   VideoAttributes,
 } from "./media";
 import {
-  AnchorAttributes,
   BlockquoteAttributes,
   DelInsAttributes,
   DetailsAttributes,
   DialogAttributes,
 } from "./text";
 import { ColAttributes, TableCellAttributes, TableHeadingAttributes } from "./table";
-
-interface AreaAttributes extends GlobalAttributes {
-  alt?: string;
-  coords?: string;
-  download?: string;
-  href?: string;
-  hreflang?: string;
-  ping?: string;
-  referrerpolicy?: string;
-  rel?: string;
-  shape?: "rect" | "circle" | "poly" | "default";
-  target?: "_self" | "_blank" | "_parent" | "_top";
-  type?: string;
-}
-
-interface DataAttributes extends GlobalAttributes {
-  value?: string;
-}
-
-interface LinkAttributes extends GlobalAttributes {
-  as?: string;
-  crossorigin?: string;
-  disabled?: boolean;
-  href?: string;
-  hreflang?: string;
-  imagesizes?: string;
-  imagesrcset?: string;
-  integrity?: string;
-  media?: string;
-  referrerpolicy?: string;
-  rel?: string;
-  sizes?: string;
-  type?: string;
-}
+import { AnchorAttributes, AreaAttributes, LinkAttributes } from "./links";
+import { DataAttributes, ScriptAttributes, StyleAttributes } from "./misc";
 
 export type ElementAttributesMap = {
   [key in keyof HTMLElementTagNameMap]: GlobalAttributes;
@@ -79,6 +46,7 @@ export type ElementAttributesMap = {
   dialog: DialogAttributes;
   embed: EmbedAttributes;
   fieldset: FieldsetAttributes;
+  form: FormAttributes;
   iframe: IframeAttributes;
   img: ImgAttributes;
   input: InputAttributes;
@@ -86,12 +54,13 @@ export type ElementAttributesMap = {
   label: LabelAttributes;
   link: LinkAttributes;
   map: MapAttributes;
-  select: SelectAttributes;
-  option: OptionAttributes;
   optgroup: OptGroupAttributes;
-  textarea: TextareaAttributes;
-  form: FormAttributes;
-  video: VideoAttributes;
+  option: OptionAttributes;
+  script: ScriptAttributes;
+  select: SelectAttributes;
+  style: StyleAttributes;
   td: TableCellAttributes;
+  textarea: TextareaAttributes;
   th: TableHeadingAttributes;
+  video: VideoAttributes;
 };
