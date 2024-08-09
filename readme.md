@@ -96,14 +96,14 @@ Accepts HTMLElements as children.
 
 ### html (innerHTML)
 
+Returns `DocumentFragment`
+
 Creates a DocumentFragment from the provided HTML string.
 
 This function is useful when you need to pass an html string to the element function.
 
 It also allows to create document fragments with ease.
 
-#### innerHTML
-
-Returns `DocumentFragment`
+#### innerHTML `string`
 
 The HTML string to be converted into a DocumentFragment.
