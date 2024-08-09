@@ -13,7 +13,7 @@ $ npm install creative-element
 ```js
 import element from "creative-element";
 // or
-import { element } from "creative-element";
+import { element, html } from "creative-element";
 
 // element()
 const anchor = element(
@@ -45,6 +45,22 @@ const button = element("button", {
     target: "#dropdown",
   },
 });
+
+// html()
+
+// create a document fragment and append it to the body
+const fragment = html(
+  `
+    <header></header>
+    <main></main>
+    <footer></footer>
+  `
+);
+
+document.body.appendChild(fragment);
+
+// pass a created fragment to the element function
+const p = element("p", {}, html("Hello <strong>world</strong>!"));
 ```
 
 ## Function reference
@@ -77,3 +93,17 @@ element("button", {
 Inner content of the created element.
 
 Accepts HTMLElements as children.
+
+### html (innerHTML)
+
+Creates a DocumentFragment from the provided HTML string.
+
+This function is useful when you need to pass an html string to the element function.
+
+It also allows to create document fragments with ease.
+
+#### innerHTML
+
+Returns `DocumentFragment`
+
+The HTML string to be converted into a DocumentFragment.

@@ -50,4 +50,10 @@ export const element = <Tag extends keyof HTMLElementTagNameMap>(
   return el;
 };
 
+export const html = (innerHTML: string): DocumentFragment => {
+	const template = document.createElement('template');
+	template.innerHTML = innerHTML;
+	return template.content;
+}
+
 export default element;
