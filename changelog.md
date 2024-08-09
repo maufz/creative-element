@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.4.0 - 2024-08-09
+
+### Changes
+
+- Added the `html` function, which creates a document fragment from an HTML string  
+This function is useful when adding children to an element created with the `element` function
+
+### Other
+
+- Readme adjustments
+
 ## v1.3.0 - 2024-08-03
 
 ### Changes
