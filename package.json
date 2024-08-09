@@ -1,6 +1,6 @@
 {
   "name": "creative-element",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A lightweight utility which simplifies the creation of HTML elements",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
