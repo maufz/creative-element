@@ -5,7 +5,7 @@
 ### Changes
 
 - Added the `html` function, which creates a document fragment from an HTML string  
-This function is useful when adding children to an element created with the `element` function
+  This function is useful when adding children to an element created with the `element` function
 
 ### Other
 
@@ -33,10 +33,10 @@ This function is useful when adding children to an element created with the `ele
 
 #### Benchmark
 
-Version      | ops/sec | Average Time (ns)   | Margin   | Samples |
--------------|---------|---------------------|----------|---------|
-v1.1.2       | 15.826  | 63186.52661506903   | ±0.98%   | 6331    |
-v1.2.0       | 56.685  | 17641.049614111675  | ±0.43%   | 22675   | 
+| Version | ops/sec | Average Time (ns)  | Margin | Samples |
+| ------- | ------- | ------------------ | ------ | ------- |
+| v1.1.2  | 15.826  | 63186.52661506903  | ±0.98% | 6331    |
+| v1.2.0  | 56.685  | 17641.049614111675 | ±0.43% | 22675   |
 
 ### Other
 

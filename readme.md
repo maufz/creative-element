@@ -10,57 +10,69 @@ $ npm install creative-element
 
 ## Usage
 
-```js
-import element from "creative-element";
-// or
-import { element, html } from "creative-element";
+### Creating a new element
 
-// element()
+```js
+import { element } from "creative-element";
+
 const anchor = element(
-  "a",
+  "a", // tag
   {
-    href: "https://github.com/maufz/",
+    href: "https://github.com/maufz/creative-element",
     target: "_blank",
     className: "cta",
-  },
-  "Inner text"
+  }, // attributes object
+  "Inner text", // content
 );
+```
 
-// append into an existing element
+### Appending it to the DOM
+
+```js
 document.body.appendChild(anchor);
+```
 
-// nested elements
+#### Result
+
+```html
+<a href="https://github.com/maufz/creative-element" target="_blank" class="cta"
+  >Inner text</a
+>
+```
+
+### Multiple children
+
+```js
 const section = element(
   "section",
   {
     id: "hero-section",
   },
   element("h1", {}, "creative-element"),
-  element("p", {}, "A lightweight library to easily create HTML elements")
+  element("p", {}, "A lightweight library to easily create HTML elements"),
 );
+```
 
-// data attribute
-const button = element("button", {
-  data: {
-    target: "#dropdown",
-  },
-});
+#### Result
 
-// html()
+```html
+<section id="hero-section">
+  <h1>creative-element</h1>
+  <p>A lightweight library to easily create HTML elements</p>
+</section>
+```
 
-// create a document fragment and append it to the body
-const fragment = html(
-  `
-    <header></header>
-    <main></main>
-    <footer></footer>
-  `
-);
+### Adding html tags inside element content
 
-document.body.appendChild(fragment);
-
-// pass a created fragment to the element function
+```js
+// use the html() helper if you need to add markup inside your element
 const p = element("p", {}, html("Hello <strong>world</strong>!"));
+```
+
+#### Result
+
+```html
+<p>Hello <strong>world</strong>!</p>
 ```
 
 ## Function reference
@@ -77,7 +89,7 @@ HTML tag name for the element (e.g. a, div, section)
 
 Object of attributes, can take an string or number as a value.
 
-`data-*` and `aria-*` can be set using an object.
+`data-*` and `aria-*` can be set using an object:
 
 ```js
 // Creates a data-target="#dropdown" attribute
@@ -100,10 +112,6 @@ Returns `DocumentFragment`
 
 Creates a DocumentFragment from the provided HTML string.
 
-This function is useful when you need to pass an html string to the element function.
-
-It also allows to create document fragments with ease.
-
 #### innerHTML `string`
 
-The HTML string to be converted into a DocumentFragment.
+The HTML content.
