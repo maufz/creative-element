@@ -16,13 +16,13 @@ $ npm install creative-element
 import { element } from "creative-element";
 
 const anchor = element(
-  "a", // tag
-  {
-    href: "https://github.com/maufz/creative-element",
-    target: "_blank",
-    className: "cta",
-  }, // attributes object
-  "Inner text" // content
+    "a", // tag
+    {
+        href: "https://github.com/maufz/creative-element",
+        target: "_blank",
+        className: "cta",
+    }, // attributes object
+    "Inner text", // content
 );
 ```
 
@@ -36,12 +36,12 @@ document.body.appendChild(anchor);
 
 ```js
 const section = element(
-  "section",
-  {
-    id: "hero-section",
-  },
-  element("h1", {}, "creative-element"),
-  element("p", {}, "A lightweight library to easily create HTML elements")
+    "section",
+    {
+        id: "hero-section",
+    },
+    element("h1", {}, "creative-element"),
+    element("p", {}, "A lightweight library to easily create HTML elements"),
 );
 ```
 
@@ -49,8 +49,8 @@ const section = element(
 
 ```html
 <section id="hero-section">
-  <h1>creative-element</h1>
-  <p>A lightweight library to easily create HTML elements</p>
+    <h1>creative-element</h1>
+    <p>A lightweight library to easily create HTML elements</p>
 </section>
 ```
 
@@ -60,9 +60,9 @@ const section = element(
 // data attribute
 // <button data-target="#dropdown">
 const button = element("button", {
-  data: {
-    target: "#dropdown",
-  },
+    data: {
+        target: "#dropdown",
+    },
 });
 
 // use the html() helper if you need to add markup inside your element
@@ -88,9 +88,9 @@ Object of attributes, can take an string or number as a value.
 ```js
 // Creates a data-target="#dropdown" attribute
 element("button", {
-  data: {
-    target: "#dropdown",
-  },
+    data: {
+        target: "#dropdown",
+    },
 });
 ```
 
