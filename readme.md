@@ -10,26 +10,31 @@ $ npm install creative-element
 
 ## Usage
 
-```js
-import element from "creative-element";
-// or
-import { element, html } from "creative-element";
+### Creating a new element
 
-// element()
+```js
+import { element } from "creative-element";
+
 const anchor = element(
-  "a",
+  "a", // tag
   {
-    href: "https://github.com/maufz/",
+    href: "https://github.com/maufz/creative-element",
     target: "_blank",
     className: "cta",
-  },
-  "Inner text"
+  }, // attributes object
+  "Inner text" // content
 );
+```
 
-// append into an existing element
+### Appending it to the DOM
+
+```js
 document.body.appendChild(anchor);
+```
 
-// nested elements
+### Multiple children
+
+```js
 const section = element(
   "section",
   {
@@ -38,28 +43,29 @@ const section = element(
   element("h1", {}, "creative-element"),
   element("p", {}, "A lightweight library to easily create HTML elements")
 );
+```
+
+#### Result:
+
+```html
+<section id="hero-section">
+  <h1>creative-element</h1>
+  <p>A lightweight library to easily create HTML elements</p>
+</section>
+```
+
+```js
+// append into an existing element
 
 // data attribute
+// <button data-target="#dropdown">
 const button = element("button", {
   data: {
     target: "#dropdown",
   },
 });
 
-// html()
-
-// create a document fragment and append it to the body
-const fragment = html(
-  `
-    <header></header>
-    <main></main>
-    <footer></footer>
-  `
-);
-
-document.body.appendChild(fragment);
-
-// pass a created fragment to the element function
+// use the html() helper if you need to add markup inside your element
 const p = element("p", {}, html("Hello <strong>world</strong>!"));
 ```
 
@@ -93,17 +99,3 @@ element("button", {
 Inner content of the created element.
 
 Accepts HTMLElements as children.
-
-### html (innerHTML)
-
-Returns `DocumentFragment`
-
-Creates a DocumentFragment from the provided HTML string.
-
-This function is useful when you need to pass an html string to the element function.
-
-It also allows to create document fragments with ease.
-
-#### innerHTML `string`
-
-The HTML string to be converted into a DocumentFragment.
